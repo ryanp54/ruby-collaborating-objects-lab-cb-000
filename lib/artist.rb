@@ -6,13 +6,13 @@ class Artist
   def initialize(name)
       @name = name
       @songs = []
+      self.save
   end
 
   def add_song(song)
     self.songs << song
     song.artist = self
     @@song_count += 1
-    self.save
   end
 
   def add_song_by_name(name)
@@ -24,6 +24,7 @@ class Artist
   def self.find_or_create_by_name(name)
     foc_artist = self.all.find{ |artist| artist.name == name }
     foc_artist = Artist.new(name) if !foc_artist
+    foc_artist
   end
 
   def print_songs
